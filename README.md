@@ -404,6 +404,6 @@ if(!notified){
     gConditionVariable.wait(lock);
 }
 ```
-- will not allow the thread reporter execute before gConditionVariable notify.
-
+will not allow the thread reporter execute before gConditionVariable notify.
+## std::future and std::async in Modern cpp
 
