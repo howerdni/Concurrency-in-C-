@@ -401,6 +401,7 @@ int main(){
 - variable notified is set because even the thread reporter is executed first, the code:
 ```if(!notified){gConditionVariable.wait(lock);}``` will not allow the thread reporter execute before gConditionVariable notify.  
 - [std::condition_variable::wait](https://en.cppreference.com/w/cpp/thread/condition_variable/wait)
+- tips：unique_lock符合RAII，当超过作用域时，会进行析构（对持有的mutex进行解锁)
 ## std::async in cpp with background thread loading data example
 
 ```
