@@ -71,6 +71,44 @@ template< class Function, class... Args >
 explicit thread( Function&& f, Args&&... args );
 ``` 
 ## Launching multiple std::thread in C++
+```
+// @file thread3.cpp
+#include <iostream>
+#include <thread>
+#include <vector>
+
+int main(){
+
+    auto lambda=[](int x){
+        std::cout << "Hello from thread!" << std::this_thread::get_id() << std::endl;
+        std::cout << "Argument passed in: " << x << std::endl;
+    };
+
+    std::vector<std::thread> threads;
+    for(int i=0; i < 10; i++){
+        threads.push_back(std::thread(lambda, i));
+    }
+
+    for(int i=0; i < 10; i++){
+        threads[i].join(); 
+    }
+
+    std::cout << "hello from my main thread" << std::endl;
+    return 0;
+}
+```
+notice:
+ - if we write the code as below, the thread in the vector will be executed in order.
+ - It told the compiler that any new thread must wait for the former thread to be terminated. 
+ - This is not a right way to write code because it is actually not concurrency.
+ ```
+    std::vector<std::thread> threads;
+    for(int i=0; i < 10; i++){
+        threads.push_back(std::thread(lambda, i));
+        threads[i].join(); 
+    }
+ ```
+ 
 
 
 
