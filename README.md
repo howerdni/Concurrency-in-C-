@@ -44,5 +44,36 @@ notice:
 - the code ```-lpthread ``` is used to link in the a thread liabrary.  
 - ```myThread.join();``` means the main thread will wait fot the thread myThread.  
 
+## std::thread with a lambda in modern c++  
+```
+// @file thread2.cpp
+#include <iostream>
+#include <thread>
+int main(){
+
+    auto lambda=[](int x){
+        std::cout << "Hello from thread!" << std::endl;
+        std::cout << "Argument passed in: " << x << std::endl;
+    };
+
+    std::thread myThread(lambda, 100);
+    myThread.join();
+
+    std::cout << "hello from my main thread" << std::endl;
+    return 0;
+}
+```
+notice:  
+- lambda function returns a r value reference
+- te constructor grammer:  
+```
+template< class Function, class... Args >
+explicit thread( Function&& f, Args&&... args );
+``` 
+## Launching multiple std::thread in C++
+
+
+
+
 
 
