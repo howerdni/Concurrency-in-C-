@@ -1,36 +1,37 @@
 # Concurrency in C++
 Table of contents
 =================
-- [When to use thread](#when-to-use-thread)
-- [Thread Libraries in C](#thread-libraries-in-c)
-- [C++ thread liabrary](#c++-thread-liabrary)
-- [First C++ thread example](#first-c++-thread-example)
-- [std::thread with a lambda in modern c++](#std::thread-with-a-lambda-in-modern-c++)
-- [Launching multiple std::thread in C++](#launching-multiple-std::thread-in-c++)
-- [jthread std::jthread in C++ 20](jthread-std::jthread-in-c++-20)
-- [std::mutex and preventing data races in C++](#std::mutex-and-preventing-data-races-in-c++)
-- [Preventing deadlock with std::lock_guard in modern C++](#preventing-deadlock-with-std::lock_guard-in-modern-c++)
-- [Using std::atomic in modern C++ to update a shared valueUsing std::atomic in modern C++ to update a shared value](#using-std::atomic-in-modern-c++-to-update-a-shared-valueUsing-std::atomic-in-modern-c++-to-update-a-shared-value)
-- [Example Data Parallel C++ Program using multiple threads in SFML](#example-data-parallel-c++-program-using-multiple-threads-in-sfml)
-- [Condition Variable in Modern cpp and unique lock](#condition-variable-in-modern-cpp-and-unique-lock)
-- [std::async in cpp with background thread loading data example](#std::async-in-cpp-with-background-thread-loading-data-example)
+- [When to use thread](#1)
+- [Thread Libraries in C](#2)
+- [C++ thread liabrary](#3)
+- [First C++ thread example](#4)
+- [std::thread with a lambda in modern c++](#5)
+- [Launching multiple std::thread in C++](#6)
+- [jthread std::jthread in C++ 20](#7)
+- [std::mutex and preventing data races in C++](#8)
+- [Preventing deadlock with std::lock_guard in modern C++](#9)
+- [Using std::atomic in modern C++ to update a shared valueUsing std::atomic in modern C++ to update a shared value](#10)
+- [Example Data Parallel C++ Program using multiple threads in SFML](#11)
+- [Condition Variable in Modern cpp and unique lock](#12)
+- [std::async in cpp with background thread loading data example](#13)
 
+## 1 
 ## When to use thread
 <ol>
   <li>Heavy Computaions</li>
   <li>Using threads to seperate work</li>
 </ol>
-
+## 2
 ## Thread Libraries in C
 - Before C++11/14/17/20, there existed threading libraries with different semantics
 - Libraries like "Boost", Intel "Thread Building Blocks", or "pthread" were used 
   - Perhaps you have used pthread at least in C
   - (std::thread I believe is implemented with pthread most posix systems)
 - Typically today I would personally recommend using the standard C++ threading library for portability reasons as the default choice.
-
+## 3
 ## C++ thread liabrary
 [Concurrency support library](https://en.cppreference.com/w/cpp/thread)
-
+## 4
 ## First C++ thread example
 ```
 // @file thread1.cpp
@@ -59,7 +60,7 @@ int main(){
 notice:  
 - the code ```-lpthread ``` is used to link in the a thread liabrary.  
 - ```myThread.join();``` means the main thread will wait fot the thread myThread.  
-
+## 5
 ## std::thread with a lambda in modern c++  
 ```
 // @file thread2.cpp
@@ -85,7 +86,8 @@ notice:
 ```
 template< class Function, class... Args >
 explicit thread( Function&& f, Args&&... args );
-``` 
+```
+## 6
 ## Launching multiple std::thread in C++
 ```
 // @file thread3.cpp
@@ -124,6 +126,7 @@ notice:
         threads[i].join(); 
     }
  ```
+ ## 7
  ## jthread std::jthread in C++ 20
  ```
  // @file thread4.cpp
@@ -151,7 +154,7 @@ int main(){
 notice:
 - the  ```std::jthread``` dose not need join procedure.
 - the  ```std::jthread``` will not execute sequentially because the join process will be done out of the current scope.
- 
+## 8
 ## std::mutex and preventing data races in C++
 
 ```
@@ -187,7 +190,7 @@ int main(){
 ```
 notice:
 - mutex will lock the access to the shared data when one thread comes into execution.
-
+## 9
 ## Preventing deadlock with std::lock_guard in modern C++  
 - The class lock_guard is a mutex wrapper that provides a convenient RAII-style mechanism for owning a mutex for the duration of a scoped block.
 - When a lock_guard object is created, it attempts to take ownership of the mutex it is given. When control leaves the scope in which the lock_guard object was created, the lock_guard is destructed and the mutex is released.
@@ -223,6 +226,7 @@ int main(){
 ```
 notice: 
 - std::lock_guard<std::mutex> is especially usefull in code with exception because manually setting unlock won't cover everywhere throwing a exception.
+## 10
 ## Using std::atomic in modern C++ to update a shared valueUsing std::atomic in modern C++ to update a shared value
 [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic)
 ```
@@ -253,6 +257,7 @@ int main(){
     return 0;
 }
 ```
+## 11
 ## Example Data Parallel C++ Program using multiple threads in SFML
 
 ```
@@ -360,6 +365,7 @@ int main(){
     return 0;
 }
 ```
+## 12
 ## Condition Variable in Modern cpp and unique lock
 - Condition Variable: to avoid thread spinning and constantly checking to see if there is work available
 - what we need to use Condition Variable
@@ -418,6 +424,7 @@ int main(){
 ```if(!notified){gConditionVariable.wait(lock);}``` will not allow the thread reporter execute before gConditionVariable notify.  
 - [std::condition_variable::wait](https://en.cppreference.com/w/cpp/thread/condition_variable/wait)
 - tips：unique_lock符合RAII，当超过作用域时，会进行析构（对持有的mutex进行解锁)
+## 13
 ## std::async in cpp with background thread loading data example
 
 ```
