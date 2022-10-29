@@ -108,7 +108,71 @@ notice:
         threads[i].join(); 
     }
  ```
+ ## jthread std::jthread in C++ 20
+ ```
+ // @file thread4.cpp
+#include <iostream>
+#include <thread>
+#include <vector>
+
+int main(){
+
+    auto lambda=[](int x){
+        std::cout << "Hello from thread!" << std::this_thread::get_id() << std::endl;
+        std::cout << "Argument passed in: " << x << std::endl;
+    };
+
+    std::vector<std::jthread> jthreads;
+    for(int i=0; i < 10; i++){
+        jthreads.push_back(std::jthread(lambda, i));
+    }
+
+
+    std::cout << "hello from my main thread" << std::endl;
+    return 0;
+}
+```
+notice:
+- the  ```std::jthread``` dose not need join procedure.
+- the  ```std::jthread``` will not execute sequentially because the join process will be done out of the current scope.
  
+## std::mutex and preventing data races in C++
+
+```
+// @file thread5.cpp
+#include <iostream>
+#include <thread>
+#include <vector>
+#include <mutex>
+
+std::mutex gLock;
+static int shared_value= 0;
+
+void shared_value_increment(){
+    gLock.lock();
+        shared_value = shared_value + 1;
+    gLock.unlock();
+}
+
+int main(){
+
+    std::vector<std::thread> threads;
+    for(int i=0; i < 1000; i++){
+        threads.push_back(std::thread(shared_value_increment));
+    }
+
+    for(int i=0; i < 1000; i++){
+        threads[i].join(); 
+    }
+
+    std::cout << "Shared value:" << shared_value << std::endl;
+    return 0;
+}
+```
+notice:
+- mutex will lock the access to the shared data when one thread comes into execution.
+
+## Preventing deadlock with std::lock_guard in modern C++
 
 
 
