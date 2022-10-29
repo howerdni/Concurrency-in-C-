@@ -1,5 +1,5 @@
 # Concurrency in C++
-Table of contents
+## Table of contents
 =================
 - [When to use thread](#1)
 - [Thread Libraries in C](#2)
