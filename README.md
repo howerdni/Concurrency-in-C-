@@ -2,7 +2,7 @@
 Table of contents
 =================
 - [When to use thread](#1)
-- [Thread Libraries in C](#2)
+- [Thread Libraries in C](#2.)
 - [C++ thread liabrary](#3)
 - [First C++ thread example](#4)
 - [std::thread with a lambda in modern c++](#5)
@@ -21,7 +21,7 @@ Table of contents
   <li>Heavy Computaions</li>
   <li>Using threads to seperate work</li>
 </ol>
-## 2
+## 2. 
 ## Thread Libraries in C
 - Before C++11/14/17/20, there existed threading libraries with different semantics
 - Libraries like "Boost", Intel "Thread Building Blocks", or "pthread" were used 
