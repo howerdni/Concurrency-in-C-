@@ -399,10 +399,11 @@ int main(){
 }
 ```
 - variable notified is set because even the thread reporter is executed first, the code:
-- ```
--         if(!notified){
-            gConditionVariable.wait(lock);
-        }
-- ```
+```
+if(!notified){
+    gConditionVariable.wait(lock);
+}
+```
+- will not allow the thread reporter execute before gConditionVariable notify.
 
 
