@@ -21,6 +21,7 @@ Table of contents
   <li>Heavy Computaions</li>
   <li>Using threads to seperate work</li>
 </ol>
+
 ## 2. 
 ## Thread Libraries in C
 - Before C++11/14/17/20, there existed threading libraries with different semantics
