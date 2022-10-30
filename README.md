@@ -473,7 +473,7 @@ int main(){
 ```
 - the std::future_status and std::future<bool>.wait_for cooperate vary well.
 - [std::future_status](https://en.cppreference.com/w/cpp/thread/future_status)
-- [wait_for()](https://en.cppreference.com/w/cpp/thread/future/wait_for)  
+- [std::future<T>::wait_for()](https://en.cppreference.com/w/cpp/thread/future/wait_for)  
   - return a std::future_status
 - [get()](https://en.cppreference.com/w/cpp/thread/future/get)  
   - return the thread result
